@@ -1,0 +1,100 @@
+class User {
+  private_name: string;
+  private_login: string;
+  private_password: string;
+  private_grade: number;
+  static count: number = 0;
+private _grade: any;
+
+constructor(name: string, login: string, password: string, grade: number){
+  this.private_name = name;
+  this.private_login = login;
+  this.private_password = password;
+  this._grade = grade;
+}
+
+get name():string{ //read
+  return this.name;
+}
+
+set name(value: string)  { //not read use
+  this.name = value;
+}
+
+get login():string{
+return this.login;
+}
+
+
+get password():string {
+  return ""; //password доступен только для изменения
+}
+
+
+showInfo(): void {
+        console.log(`Name: ${this.name}, Login: ${this.login}`);
+    }
+
+    a(other: User): boolean {
+        return this._grade === other._grade;
+    }
+ // number (целое положительное > 0)
+    b(other: User): boolean { 
+        return this._grade < other._grade;
+    }
+
+    c(other: User): boolean {
+        return this._grade > other._grade;
+    }
+}
+
+
+
+class SuperUser extends User {
+    private _role: string;
+
+    constructor(name: string, login: string, password: string, role: string, grade: number) {
+        super(name, login, password, grade);
+        this._role = role;
+    }
+
+    get role(): string {
+        return this._role;
+    }
+
+    set role(value: string) {
+        this._role = value;
+    }
+
+    showInfo(): void {
+        console.log(`Name: ${this.name}, Login: ${this.login}, Role: ${this.role}`);
+    }
+}
+
+const  user1 = new User('Paul McCartney', 'paul', '1234', 3);
+const user2 = new  User('George Harrison',  'george', '5678', 2);
+const  user3 = new User('Richard  Starkey',  'ringo', '8523', 3);
+const admin = new SuperUser('John Lennon', 'john', '0000', 'admin', 5);
+
+user1.showInfo( );
+admin.showInfo( );
+
+
+
+console.log(`Всего обычн пользователей: ${User.count}`);
+//сравнение уровней пользователя
+
+console.log(`Всего суп пользов: ${SuperUser.count}`);
+
+
+console.log(user1.a (user2));
+
+console.log(admin.b ( user3));
+console.log(user1.c (user3));
+
+
+//резульлтат
+user3.name = 'Ringo Starr';
+console.log(user3.name);
+console.log(user2.password);
+console.log(user2.login);
